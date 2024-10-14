@@ -1,0 +1,24 @@
+<div class="flex flex-col justify-center items-center w-full p-10">
+    <h2>Update Category</h2>
+    <mat-form-field class="w-full">
+        <mat-label>Enter Category</mat-label>
+        <input matInput [formControl]="categoryName" />
+        @if (categoryName.invalid) {
+        <mat-error>
+            {{categoryName.errors?.['required'] && 'Category name is required' }}
+            {{categoryName.errors?.['noLeadingSpace'] && 'Space at the beginning is not allowed' }}
+        </mat-error>
+        }
+    </mat-form-field>
+    <div class="example-button-container mt-8 flex justify-evenly w-full">
+
+        <button [routerLink]="['/admin/category']" mat-fab extended>
+            <mat-icon>home</mat-icon>
+            Home
+        </button>
+        <button (click)="updateCategory()" [disabled]="categoryName.invalid" mat-fab extended>
+            <mat-icon>save</mat-icon>
+            Update
+        </button>
+    </div>
+</div>

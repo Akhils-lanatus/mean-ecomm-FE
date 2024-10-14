@@ -1,0 +1,48 @@
+<div class="p-10">
+
+    <div class="flex justify-between align-items-center mb-4">
+        <h3>Categories</h3>
+        <button [routerLink]="['/admin/category/add']" mat-fab extended>
+            <mat-icon>add</mat-icon>
+            Add Category
+        </button>
+    </div>
+    <mat-form-field>
+        <mat-label>Category</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Search Category" #input>
+    </mat-form-field>
+    <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" matSort>
+
+            <ng-container matColumnDef="_id">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+                <td mat-cell *matCellDef="let row"> {{row._id}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+                <td mat-cell *matCellDef="let row"> {{row.name}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef> Actions </th>
+                <td mat-cell *matCellDef="let row">
+                    <button mat-raised-button (click)="updateCategory(row.originalId)">Edit</button>
+                    <button mat-flat-button class="ml-4" (click)="deleteCategory(row.originalId)"
+                        color="warn">Delete</button>
+                </td>
+            </ng-container>
+
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+            <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell text-center p-4 text-lg" colspan="2">No category found
+                </td>
+            </tr>
+        </table>
+
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+    </div>
+</div>
